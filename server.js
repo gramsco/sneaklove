@@ -49,7 +49,6 @@ function checkloginStatus(req, res, next) {
   res.locals.user = req.session.currentUser ? req.session.currentUser : null; 
   // access this value @ {{user}} or {{user.prop}} in .hbs
   res.locals.isLoggedIn = Boolean(req.session.currentUser);
-  console.log("middleware was used here")
 
   // access this value @ {{isLoggedIn}} in .hbs
   next(); // continue to the requested route
@@ -78,8 +77,8 @@ const authRouter = require("./routes/auth")
 const sneakersRouter = require("./routes/dashboard_sneaker")
 
 app.use("/", checkloginStatus, basePageRouter);
-app.use("/",authRouter)
-app.use("/sneakers",sneakersRouter)
+app.use("/",checkloginStatus,authRouter)
+app.use("/sneakers",checkloginStatus,sneakersRouter)
 
 app.listen(process.env.PORT, () => {
   console.log(

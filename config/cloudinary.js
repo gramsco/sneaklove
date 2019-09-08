@@ -8,11 +8,26 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET
 })
 
+
 const storage = cloudinaryStorage({
     cloudinary,
-    folder: "sneakers"
+    folder: "sneakers",
+    allowedFormats: ['jpg', 'png'],
+    filename: function (req, file, cb) {
+        console.log("request =>", req);
+        console.log("file =>", file);
+        cb(null, file.originalname);
+        // The file on cloudinary would have the same name as the original file name
+    }
 })
 
-const fileUploader = multer({ storage });
+const fileUploader = multer({ storage })
+
+
+function middleware() {
+    console.log("coucou")
+}
+
 
 module.exports = fileUploader;
+// module.exports = middleware;

@@ -8,7 +8,7 @@ let sneakerSchema = new mongoose.Schema({
     sneaker_price: Number,
     sneaker_category: String, // men, women, kids
     sneaker_image:String,
-    sneaker_tag: {
+    sneaker_id_tag: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "tag"
     }
